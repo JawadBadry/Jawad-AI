@@ -1,0 +1,164 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+:root{
+    --bg:#131314;
+    --sidebar:#1e1f20;
+    --user:#2b2d30;
+    --ai:#202124;
+    --gold:#c9a64b;
+    --text:#e8eaed;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    background:var(--bg);
+    color:var(--text);
+    overflow:hidden;
+}
+
+/* القائمة الجانبية */
+
+.sidebar{
+    width:260px;
+    background:var(--sidebar);
+    border-left:1px solid rgba(255,255,255,.08);
+    display:flex;
+    flex-direction:column;
+    transition:.3s;
+}
+
+.sidebar.hidden{
+    width:0;
+    overflow:hidden;
+    border:none;
+}
+
+.sidebar-header{
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.sidebar-header button{
+    background:var(--gold);
+    border:none;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+#chatHistory{
+    padding:10px;
+    overflow-y:auto;
+}
+
+.history-item{
+    background:#2a2b2d;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.history-item:hover{
+    background:#34363a;
+}
+
+/* المنطقة الرئيسية */
+
+.main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+.topbar{
+    height:60px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:0 20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+#toggleBtn{
+    background:none;
+    border:none;
+    color:var(--gold);
+    font-size:22px;
+    cursor:pointer;
+}
+
+.topbar h1{
+    font-size:20px;
+    color:var(--gold);
+}
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.welcome{
+    text-align:center;
+    margin:auto;
+}
+
+.message{
+    max-width:75%;
+    padding:14px;
+    border-radius:16px;
+    line-height:1.7;
+    white-space:pre-wrap;
+}
+
+.user{
+    background:var(--user);
+    align-self:flex-start;
+}
+
+.ai{
+    background:var(--ai);
+    border-top:3px solid var(--gold);
+    align-self:flex-end;
+}
+
+.input-area{
+    display:flex;
+    gap:10px;
+    padding:15px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.input-area input{
+    flex:1;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#202124;
+    color:white;
+}
+
+.input-area button{
+    width:110px;
+    border:none;
+    border-radius:12px;
+    background:var(--gold);
+    cursor:pointer;
+    font-weight:bold;
+}

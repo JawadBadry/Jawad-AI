@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jawad AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Jawad AI</h2>
+            <button onclick="newChat()">➕</button>
+        </div>
+
+        <div id="chatHistory"></div>
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+            <button id="toggleBtn" onclick="toggleSidebar()">☰</button>
+            <h1>Jawad AI</h1>
+        </div>
+
+        <div id="messages" class="messages">
+
+            <div class="welcome">
+                <h2>مرحباً بك في جواد AI</h2>
+                <p>اكتب أي سؤال للبدء</p>
+            </div>
+
+        </div>
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="userInput"
+                placeholder="اكتب رسالتك..."
+                onkeydown="handleEnter(event)"
+            >
+
+            <button onclick="sendMessage()">
+                إرسال
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

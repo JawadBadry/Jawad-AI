@@ -76,7 +76,7 @@ async function sendMessage() {
 
         console.log(data);
 
-        alert(JSON.stringify(data, null, 2));
+        //alert(JSON.stringify(data, null, 2));
 
         if (data.error) {
             aiElement.textContent =

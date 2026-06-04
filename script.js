@@ -76,6 +76,8 @@ async function sendMessage() {
 
         console.log(data);
 
+        alert(JSON.stringify(data, null, 2));
+
         if (data.error) {
             aiElement.textContent =
                 "حدث خطأ يمكنك اعاده المحاولة لاحقا: " + data.error.message;

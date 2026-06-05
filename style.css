@@ -162,3 +162,26 @@ body{
     cursor:pointer;
     font-weight:bold;
 }
+@media (max-width: 768px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .chat-main {
+        width: 100%;
+    }
+
+    .message-box {
+        max-width: 85%;
+    }
+
+    .chat-header {
+        font-size: 20px;
+    }
+
+    .input-wrapper {
+        width: 95%;
+    }
+
+}

@@ -162,6 +162,9 @@ body{
     cursor:pointer;
     font-weight:bold;
 }
+a {
+    color : var(--gold);
+}
 @media (max-width: 768px) {
 
     .sidebar {

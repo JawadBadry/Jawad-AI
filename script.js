@@ -80,7 +80,7 @@ async function sendMessage() {
 
         if (data.error) {
             aiElement.textContent =
-                "حدث خطأ يمكنك اعاده المحاولة لاحقا: " + data.error.message;
+                "حدث خطأ يمكنك اعاده المحاولة لاحقا او التحدث مع المبرمج على ايميله <a href="mailto:Jawadbadry8@gmail.com">Jawadbadry8@gmail.com</a>: " + data.error.message;
             return;
         }
 

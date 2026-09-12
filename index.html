@@ -6,8 +6,8 @@
   <title>Jawad AI</title>
   
   <!-- Favicon (أيقونة J.ai) -->
-  <link rel="icon" type="image/jpg" href="favicon.jpg">
-  
+  <link rel="icon" type="image/png" href="J.ai.png">
+  <link rel="shortcut icon" type="image/png" href="J.ai.png">
 
   <!-- Google Fonts & FontAwesome Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -234,7 +234,7 @@
       padding: 5px 10px;
     }
 
-    /* Modal - نافذة الـ API Key */
+    /* Modal - نافذة كلمة السر */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -317,7 +317,7 @@
 
       <div class="sidebar-footer">
         <button class="settings-btn" id="settingsBtn">
-          <i class="fa-solid fa-gear"></i> إعدادات كلمه السر
+          <i class="fa-solid fa-gear"></i> إعدادات كلمة السر
         </button>
       </div>
     </aside>
@@ -350,12 +350,12 @@
     </main>
   </div>
 
-  <!-- نافذة إدخال API Key -->
+  <!-- نافذة إدخال كلمة السر -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
-      <h3>إعدادات كلمه السر</h3>
-      <p style="font-size: 14px; color: #aaa;">اكتب كلمه السر هنا</p>
-      <input type="password" id="apiKeyInput" placeholder="..." />
+      <h3>إعدادات كلمة السر</h3>
+      <p style="font-size: 14px; color: #aaa;">يرجى إدخال كلمة السر الخاصة بك للتفعيل:</p>
+      <input type="password" id="apiKeyInput" placeholder="أدخل كلمة السر هنا..." />
       <div class="modal-actions">
         <button id="saveKeyBtn" class="primary-btn">حفظ</button>
         <button id="closeModalBtn" class="secondary-btn">إلغاء</button>
@@ -364,10 +364,10 @@
   </div>
 
   <script>
-    const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-    const DEFAULT_MODEL = "llama-3.3-70b-versatile";
+    const API_SERVICE_URL = "https://api.groq.com/openai/v1/chat/completions";
+    const DEFAULT_MODEL = "llama-3.1-8b-instant";
 
-    let apiKey = localStorage.getItem("groq_api_key") || "";
+    let secretKey = localStorage.getItem("app_secret_key") || "";
     let conversations = JSON.parse(localStorage.getItem("jawad_chats")) || [];
     let currentChatId = null;
 
@@ -382,7 +382,6 @@
     const saveKeyBtn = document.getElementById("saveKeyBtn");
     const closeModalBtn = document.getElementById("closeModalBtn");
 
-    // توسيع مربع الكتابة تلقائياً
     userInput.addEventListener("input", () => {
       userInput.style.height = "auto";
       userInput.style.height = `${userInput.scrollHeight}px`;
@@ -390,7 +389,7 @@
 
     window.addEventListener("DOMContentLoaded", () => {
       renderHistory();
-      if (!apiKey) openModal();
+      if (!secretKey) openModal();
     });
 
     settingsBtn.addEventListener("click", openModal);
@@ -399,11 +398,11 @@
     saveKeyBtn.addEventListener("click", () => {
       const key = apiKeyInput.value.trim();
       if (key) {
-        apiKey = key;
-        localStorage.setItem("groq_api_key", key);
+        secretKey = key;
+        localStorage.setItem("app_secret_key", key);
         closeModal();
       } else {
-        alert("يرجى إدخال مفتاح API صحيح.");
+        alert("يرجى إدخال كلمة السر بشكل صحيح.");
       }
     });
 
@@ -414,8 +413,8 @@
       const message = userInput.value.trim();
       if (!message) return;
 
-      if (!apiKey) {
-        alert("يرجى إدخال Groq API Key أولاً.");
+      if (!secretKey) {
+        alert("يرجى إدخال كلمة السر أولاً.");
         openModal();
         return;
       }
@@ -433,7 +432,7 @@
       const loadingId = addLoadingIndicator();
 
       try {
-        const responseText = await fetchGroqResponse();
+        const responseText = await fetchAIResponse();
         removeMessage(loadingId);
         addMessageToUI("assistant", responseText);
         saveMessageToChat("assistant", responseText);
@@ -443,15 +442,15 @@
       }
     });
 
-    async function fetchGroqResponse() {
+    async function fetchAIResponse() {
       const chat = conversations.find((c) => c.id === currentChatId);
       const formattedMessages = chat ? chat.messages.map(m => ({ role: m.role, content: m.content })) : [];
 
-      const response = await fetch(GROQ_API_URL, {
+      const response = await fetch(API_SERVICE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`
+          "Authorization": `Bearer ${secretKey}`
         },
         body: JSON.stringify({
           model: DEFAULT_MODEL,
@@ -465,7 +464,7 @@
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || "فشل الاتصال بمحرك الذكاء الاصطناعي.");
+        throw new Error(errorData.error?.message || "فشل الاتصال بالخدمة. تأكد من كلمة السر.");
       }
 
       const data = await response.json();
@@ -560,7 +559,7 @@
     }
 
     function openModal() {
-      apiKeyInput.value = apiKey;
+      apiKeyInput.value = secretKey;
       modalOverlay.classList.add("active");
     }
 
